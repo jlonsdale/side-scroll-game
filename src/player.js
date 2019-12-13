@@ -7,5 +7,9 @@ class Player {
     this.yVel = 0
   }
 
+  giveVelocity() {
+    this.yPos+=10
+  }
+
 
 }
