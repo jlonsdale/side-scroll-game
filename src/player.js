@@ -10,15 +10,19 @@ class Player {
     this.g = 7
     this.dt = 0.1
     this.flying = false
-    this.grounded = true
+    this.grounded = false
+  }
+
+  canStartFlying() {
+    if(this.stamina>0 && this.grounded == true) {return true}
+    return false
   }
 
   fly() {
-    if (this.stamina>0) {
+    if (this.canStartFlying()) {
       this.flying = true
       this.grounded = false
     }
-    else {this.stopFlying()}
   }
 
   stopFlying() {
@@ -26,22 +30,28 @@ class Player {
   }
 
   regenStam() {
-    if (this.stamina<=this.maxStam) {this.stamina+=5}
+    if (this.stamina<=this.maxStam) {this.stamina+=2}
+  }
+
+  decayStam() {
+    if (this.stamina>10) {this.stamina-=7}
   }
 
   velocity() {
     if (this.flying==true) {
+      if(this.stamina<=10) {
+        this.flying=false
+      }
       this.yVel=-10
-      this.stamina-=10}
+      this.decayStam() }
     else {
       this.yVel+=this.g*this.dt
       this.regenStam()}
   }
 
   position() {
-    console.log(this.grounded)
-    this.velocity()
     this.checkCollision()
+    this.velocity()
     this.yPos+=this.yVel*this.dt
   }
 

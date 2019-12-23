@@ -5,7 +5,7 @@ $( document ).ready(function() {
   var ctx = canvas.getContext("2d");
 
   const player_picture = document.getElementById("player");
-  var player = new Player(canvas.width/2,200)
+  var player = new Player(canvas.width/2,150)
 
   setInterval(draw, 10);
 
@@ -18,6 +18,7 @@ $( document ).ready(function() {
   });
 
   function draw() {
+    console.log(player)
     $(".stam").width((player.stamina/player.maxStam)*345);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     player.position()
